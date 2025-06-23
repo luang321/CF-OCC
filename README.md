@@ -1,2 +1,2 @@
 # CF-OCC
-code will be opensouce after final decision of the paper come out
+code will be available after final decision of the paper come out
