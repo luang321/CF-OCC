@@ -1,0 +1,53 @@
+
+# train pose/synth net
+dataset:  "kitti" #"kitti" #
+
+batch_size: 4 
+batch_size_val: 4
+
+n_gpus: 1
+num_workers_per_gpu: 1 #8 #16 #0 #1 #2
+exp_prefix: ""
+
+mode: "psuedo"
+all_pred_poses: False #True
+past_step: 5 
+past_length: 4 #10 #4
+future_step: 5 #5
+future_length: 1 #10 #10 #10 #4
+save_path : ""
+##########
+train_engine: "train_one_epoch"
+val_engine: "evaluate_standard" #"test_standard" # "evaluate_standard" 
+#####
+tempnet: "models.modules.tempnet.tempnet"
+tempnet_pth: ""
+
+#######
+posenet: "models.modules.posenet_1frame.posenet"
+fold_2d: 8 
+dim_posenet: 256 #64
+dim_2d: 256 #64
+dim_3d: 256
+stride: 4
+net_rgb:  "dino"
+freeze_backbone: False 
+#
+synthnet: "models.modules.synthnet.synthnet"
+patch_size: 4
+
+###model conf
+generator: "models.wrapper.wrapper" 
+#########
+thr: 0.01
+##############
+lr: 0.0001 #1e-4
+weight_decay:  0.0001 #1e-4
+
+start_val: 15 
+val_rate: 3 
+milestones: [20,25]  
+epochs: 30
+#200
+seed: 0
+device: "cuda"

@@ -1,0 +1,48 @@
+
+# train temp ssc
+dataset: "kitti" #"kitti" # "kitti360" #
+
+
+
+batch_size: 4 #4 #32 #32 #64 #16 #32 #64 #32 #4 #4 #4 #4
+batch_size_val: 4
+
+
+n_gpus: 1
+num_workers_per_gpu: 1 #8 #16 #0 #1 #2
+exp_prefix: ""
+
+
+mode: "psuedo"
+past_step: 5 
+past_length: 4 #4 #10 #4
+future_step: 5 #5
+future_length: 1 #10 #10 #10 #4
+save_path : "tempnet"
+##########
+train_engine: "train_one_epoch"
+val_engine: "evaluate_standard" #"test_standard" # "evaluate_standard" #"evaluate_noloss"#"evaluate_standard" ##"test_standard" #
+#######
+tempnet: "models.modules.tempnet.tempnet"
+fold_2d: 8 
+dim_2d: 64 # 256 #
+#256 #128 #64
+dim_3d: 256
+###model conf
+generator: "models.wrapper.wrapper" 
+net_rgb:  "dino" 
+freeze_backbone: False 
+#########
+stride: 4
+thr: 0.01
+##############
+lr: 0.0001 #1e-4
+weight_decay:  0.0001 #1e-4
+
+start_val: 2 
+val_rate: 6 
+milestones: [20,25] 
+epochs: 30
+
+seed: 0
+device: "cuda"
